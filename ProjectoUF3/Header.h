@@ -26,7 +26,7 @@ struct Deporte
 struct Socio
 {
     int codSoci=0;
-    char nombre[NAM] ={""};
+    char nombre[NAM];
     int edad;
     double quota;
     Deporte deportes[DEPO];

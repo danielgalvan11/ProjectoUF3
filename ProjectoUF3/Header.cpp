@@ -2,7 +2,6 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <fstream>
 
 
@@ -24,7 +23,7 @@ void initialize(Socio socio[], Deporte depo[])
         //depo[i].precio=ERROR;
         
     }
-
+    
     
     //cargo los deportes
     fstream myfile;
@@ -397,7 +396,9 @@ int printDeportesUser(Socio socis[],int posSocio)
         if(strcmp(socis[posSocio].deportes[j].nombre, ""))
         {
             
-            cout << endl << j+1 << "  Nombre: " << socis[posSocio].deportes[j].nombre << endl;
+            cout << endl << j+1 << "  Nombre: "
+            << socis[posSocio].deportes[j].nombre << endl;
+            
             cout << "   Horas: " << socis[posSocio].deportes[j].horas << endl;
             if(socis[posSocio].deportes[j].morning)
             {
@@ -442,11 +443,7 @@ void mostrarDeporteUnSocio(Socio socio[])
         }
     }
 }
-/*
- static void extracted(int &contador, int pos, Socio *socio) {
- destroyUser(socio, pos, contador);
- }
- */
+
 void bajaSocio(Socio socio[], int& contador)
 {
     char ele;
@@ -477,7 +474,8 @@ void bajaSocio(Socio socio[], int& contador)
                 
                 do{
                     space();
-                    cout << endl << "¿Seguro que quieres dar de baja a " << socio[posSocio].nombre <<"? (S/N):" << endl;
+                    cout << endl << "¿Seguro que quieres dar de baja a "
+                    << socio[posSocio].nombre <<"? (S/N):" << endl;
                     cin >> ele;
                 }while (ele!='s' && ele!='S' && ele!='N' && ele!='n');
                 space();
@@ -556,7 +554,7 @@ void destroyUser(Socio socio[], int pos, int& contador)
         }
     }
     
-    
+    //fusilo la socio de ultimo en la lista
     socio[contador].codSoci=ERROR;
     strcpy(socio[contador].nombre, "");
     socio[contador].edad=ERROR;
@@ -776,20 +774,20 @@ void bajaDeporte(Socio socio[])
 
 void lastVersion(string &file, bool read)
 {
-    int jo=0;
+    int ver=0;
     if(!read)
     {
         if (ifstream(file))
         {
             file=file.substr(0, file.length() - 4);
-            jo++;
-            file=file + "(" + to_string(jo) + ").dat";
+            ver++;
+            file=file + "(" + to_string(ver) + ").dat";
             
             while(ifstream(file))
             {
                 file=file.substr(0, file.length() - 7);
-                jo++;
-                file=file + "(" + to_string(jo) + ").dat";
+                ver++;
+                file=file + "(" + to_string(ver) + ").dat";
             }
         }
     }else if(read){
@@ -797,26 +795,27 @@ void lastVersion(string &file, bool read)
         {
             //si existe el archivo original, puebo el siguiente
             file=file.substr(0, file.length()-4);
-            jo++;
-            file=file + "(" + to_string(jo) + ").dat";
+            ver++;
+            file=file + "(" + to_string(ver) + ").dat";
             //si existe (1)
             if(ifstream(file))
             {
                 file=file.substr(0, file.length() - 7);
-                jo++;
-                file=file + "(" + to_string(jo) + ").dat";
+                ver++;
+                file=file + "(" + to_string(ver) + ").dat";
                 
                 //pruebo con (2)
                 while(ifstream(file))
                 {
                     file=file.substr(0, file.length() - 7);
-                    jo++;
-                    file=file + "(" + to_string(jo) + ").dat";
+                    ver++;
+                    file=file + "(" + to_string(ver) + ").dat";
                 }
-                //cuando no encuentre un numero (num), le indico que lea el ultimo que econtro
+                //cuando no encuentre un numero (num)..
+                //le indico que lea el ultimo que econtro
                 file=file.substr(0, file.length() - 7);
-                jo--;
-                file=file + "(" + to_string(jo) + ").dat";
+                ver--;
+                file=file + "(" + to_string(ver) + ").dat";
             }else{
                 //cargo el original si no hay (1)..
                 file=file.substr(0, file.length() - 7);
@@ -830,215 +829,259 @@ void lastVersion(string &file, bool read)
 void leerBajasDeportes(Socio socios[])
 {
     
-    int words = 3;
-    string arr[words];
-    
-    
-    
     fstream myfile;
-    string lineaDoing;
-    int posLineaALeer = 0;
-    int contLineas = 0;
+    string input;
+    string deporte;
+    string getter;
+    bool found = false;
     
-    char nombre[SOCI];
-    string input="";
+    cout << "¿Que deporte estas buscando?"<<endl << endl;
+    cin >> input;
     
-    
-    cout << "¿Que deporte estas buscando?"<<endl;
-    cin >> nombre;
-    
+    space();
+    cout << "Pues..." << endl << endl;
     myfile.open(DELDEPOFILE, ios::in);
     if (myfile.is_open())
     {
         while (!myfile.eof())
         {
-            //obtengo la primera palabra de cada linea(deporte)
-            getline(myfile, lineaDoing);
+            //obtengo el nombre del deporte
+            myfile >> deporte;
             
-            
-            input = getFirst(lineaDoing);
-            
-            //cout << input << endl;
-            
-            if(input=="")
+
+            //si el nombre del deporte es igual al indicado por el usuario
+            if(deporte.compare(input)==0)
             {
-                //no hay lienas pongo el cont a 0
-                contLineas--;
-            }else if(strcasecmp(nombre,input.c_str())==0){
+                myfile >> getter;
+                cout << getter << " ";
+                myfile >> getter;
+                cout << getter << endl;
                 
-                
-                posLineaALeer=contLineas;
+                found = true;
+            }else{
+                //simplemente paso de largo el nombre de esa baja
+                myfile >> getter;
+                myfile >> getter;
             }
-            contLineas++;
+            
         }
         myfile.close();
     }
     
-    if(contLineas==0)
-        cout << "No hay deportes que leer";
-    else if(posLineaALeer>0)
-    {
-        myfile.open(DELDEPOFILE, ios::in);
-        if(myfile.is_open())
-        {
-            int i = ERROR;
-            myfile.seekg(0, ios::beg);
-            while (!myfile.eof() && i<posLineaALeer)
-            {
-                i++;
-                getline(myfile, lineaDoing);
-                
-            }
-            
-            stringstream sin(lineaDoing);
-            
-            string temp;
-            vector<string> Socios;
-            while(getline(sin, temp, ' '))
-                Socios.push_back(temp);
-            
-            //for(auto& itr : Socios)
-            //cout << itr << endl;
-            
-            cout << "Los Socios dados de baja en '" <<  nombre << "':" << endl;
-            for (int i = 1; i<=(Socios.size()-1); i+=2)
-            {
-                cout << endl << Socios[i] << " " <<(Socios[i+1]) << endl;
-            }
-            
-            myfile.close();
-            
-        } else {
-            cout << "Error";
-        }
-        
-    }else{
-        space();
-        cout << "No se ha encontrado nada";
-    }
-}
-
-void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
-{
+    if(!found)
+        cout << "Uy.. no se ha encontrado nada";
     /*
-     //Otra manera de Guardar la baja deporte txt
+     int words = 3;
+     string arr[words];
+     
      
      
      fstream myfile;
      string lineaDoing;
+     int posLineaALeer = 0;
+     int contLineas = 0;
+     
+     char nombre[SOCI];
+     string input="";
      
      
+     cout << "¿Que deporte estas buscando?"<<endl;
+     cin >> nombre;
+     
+     myfile.open(DELDEPOFILE, ios::in);
+     if (myfile.is_open())
+     {
+     while (!myfile.eof())
+     {
+     //obtengo la primera palabra de cada linea(deporte)
+     getline(myfile, lineaDoing);
+     
+     
+     input = getFirst(lineaDoing);
+     
+     //cout << input << endl;
+     
+     if(input=="")
+     {
+     //no hay lienas pongo el cont a 0
+     contLineas--;
+     }else if(strcasecmp(nombre,input.c_str())==0){
+     
+     
+     posLineaALeer=contLineas;
+     }
+     contLineas++;
+     }
+     myfile.close();
+     }
+     
+     if(contLineas==0)
+     cout << "No hay deportes que leer";
+     else if(posLineaALeer>0)
+     {
+     myfile.open(DELDEPOFILE, ios::in);
+     if(myfile.is_open())
+     {
+     int i = ERROR;
+     myfile.seekg(0, ios::beg);
+     while (!myfile.eof() && i<posLineaALeer)
+     {
+     i++;
+     getline(myfile, lineaDoing);
+     
+     }
+     
+     stringstream sin(lineaDoing);
+     
+     string temp;
+     vector<string> Socios;
+     while(getline(sin, temp, ' '))
+     Socios.push_back(temp);
+     
+     //for(auto& itr : Socios)
+     //cout << itr << endl;
+     
+     cout << "Los Socios dados de baja en '" <<  nombre << "':" << endl;
+     for (int i = 1; i<=(Socios.size()-1); i+=2)
+     {
+     cout << endl << Socios[i] << " " <<(Socios[i+1]) << endl;
+     }
+     
+     myfile.close();
+     
+     } else {
+     cout << "Error";
+     }
+     
+     }else{
+     space();
+     cout << "No se ha encontrado nada";
+     }*/
+}
+
+void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
+{
+    
+    //Otra manera de Guardar la baja deporte txt
+    //deporte---socio
+    
+    fstream myfile;
+    string lineaDoing;
+    
+    
+    myfile.open(DELDEPOFILE, ios::out | ios::app);
+    
+    if (myfile.is_open())
+    {
+        //si esta vacio no agrego un salto de linea
+        if (!(myfile.tellg() == 0)) {
+            myfile << endl;
+        }
+
+        myfile << socio[posSocio].deportes[posBorrar].nombre;
+        myfile << " " << socio[posSocio].nombre;
+        
+        myfile.close();
+    }
+    
+    
+    
+    /*
+     //------deporte por linea
+     fstream myfile;
+     string lineaDoing;
+     int posLineaAmodificar = 0;
+     int contLineas = 0;
+     
+     bool found_depo = false;
+     
+     myfile.open(DELDEPOFILE, ios::in);
+     if (myfile.is_open())
+     {
+     while (!myfile.eof())
+     {
+     
+     
+     //obtengo la primera palabra de cada linea(deporte)
+     getline(myfile, lineaDoing);
+     
+     
+     string input = getFirst(lineaDoing);
+     
+     //cout << input << endl;
+     
+     if(input=="")
+     {
+     //no hay lienas pongo el cont a 0
+     contLineas--;
+     }else if(strcmp(socio[posSocio].deportes[posBorrar].nombre,input.c_str())==0){
+     found_depo=true;
+     posLineaAmodificar=contLineas;
+     }
+     contLineas++;
+     
+     }
+     myfile.close();
+     
+     }
+     
+     if(found_depo)
+     {
+     
+     //posLineaAmodificar es en la linea donde esta
+     myfile.open(DELDEPOFILE, ios::in|ios::out);
+     string lineas="";
+     char temp[contLineas][SOCI*3];
+     if (myfile.is_open())
+     {
+     for (int cont=0; cont<contLineas; cont++)
+     {
+     getline(myfile, lineas);
+     //lo salvo al temp
+     strcpy(temp[cont],lineas.c_str());
+     }
+     
+     strcat(temp[posLineaAmodificar], " ");
+     strcat(temp[posLineaAmodificar], socio[posSocio].nombre);
+     
+     
+     
+     myfile.close();
+     }else{
+     cout << "Error abriendo archivo";
+     }
+     
+     
+     myfile.open(DELDEPOFILE, ios::out);
+     if(myfile.is_open())
+     {
+     
+     
+     for (int i = 0; i<contLineas; i++)
+     {
+     myfile << temp[i] << endl;
+     
+     }myfile.close();
+     }else{
+     cout << "Error abriendo archivo";
+     }
+     
+     
+     }else{//si es un deporte nuevo
      myfile.open(DELDEPOFILE, ios::out | ios::app);
      
      if (myfile.is_open())
      {
      
-     cout << socio[posSocio].deportes[posBorrar].nombre;
-     cout << " " << socio[posSocio].nombre;
-     //--
      myfile << socio[posSocio].deportes[posBorrar].nombre;
      myfile << " " << socio[posSocio].nombre << endl;
      
      myfile.close();
+     }else{
+     cout << "Error abriendo archivo";
      }
-     
+     }
      */
-    
-    
-    //------deporte por linea
-    fstream myfile;
-    string lineaDoing;
-    int posLineaAmodificar = 0;
-    int contLineas = 0;
-    
-    bool found_depo = false;
-    
-    myfile.open(DELDEPOFILE, ios::in);
-    if (myfile.is_open())
-    {
-        while (!myfile.eof())
-        {
-            
-            
-            //obtengo la primera palabra de cada linea(deporte)
-            getline(myfile, lineaDoing);
-            
-            
-            string input = getFirst(lineaDoing);
-            
-            //cout << input << endl;
-            
-            if(input=="")
-            {
-                //no hay lienas pongo el cont a 0
-                contLineas--;
-            }else if(strcmp(socio[posSocio].deportes[posBorrar].nombre,input.c_str())==0){
-                found_depo=true;
-                posLineaAmodificar=contLineas;
-            }
-            contLineas++;
-            
-        }
-        myfile.close();
-        
-    }
-    
-    if(found_depo)
-    {
-        
-        //posLineaAmodificar es en la linea donde esta
-        myfile.open(DELDEPOFILE, ios::in|ios::out);
-        string lineas="";
-        char temp[contLineas][SOCI*3];
-        if (myfile.is_open())
-        {
-            for (int cont=0; cont<contLineas; cont++)
-            {
-                getline(myfile, lineas);
-                //lo salvo al temp
-                strcpy(temp[cont],lineas.c_str());
-            }
-            
-            strcat(temp[posLineaAmodificar], " ");
-            strcat(temp[posLineaAmodificar], socio[posSocio].nombre);
-            
-            
-            
-            myfile.close();
-        }else{
-            cout << "Error abriendo archivo";
-        }
-        
-        
-        myfile.open(DELDEPOFILE, ios::out);
-        if(myfile.is_open())
-        {
-            
-            
-            for (int i = 0; i<contLineas; i++)
-            {
-                myfile << temp[i] << endl;
-                
-            }myfile.close();
-        }else{
-            cout << "Error abriendo archivo";
-        }
-        
-        
-    }else{//si es un deporte nuevo
-        myfile.open(DELDEPOFILE, ios::out | ios::app);
-        
-        if (myfile.is_open())
-        {
-            
-            myfile << socio[posSocio].deportes[posBorrar].nombre;
-            myfile << " " << socio[posSocio].nombre << endl;
-            
-            myfile.close();
-        }else{
-            cout << "Error abriendo archivo";
-        }
-    }
 }
 
 string getFirst(string linea)
