@@ -186,22 +186,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549419230.9606889"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "734"
-            endingLineNumber = "734"
-            landmarkName = "bajaDeporte(Socio socio[])"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjectoUF3/Header.cpp"
             timestampString = "549419230.960955"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

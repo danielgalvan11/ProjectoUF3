@@ -1105,15 +1105,3 @@ void edadesDeportes(Socio socis[])
     
 }
 
-/*
- char ele;
- do{
- space();
- cout << endl << "¿Quieres guardar el archivo de todas formas? (S/N):" << endl;
- cin >> ele;
- }while (ele!='s' && ele!='S' && ele!='N' && ele!='n');
- space();
- if(ele=='n'||ele=='N')
- {
- }
- */
