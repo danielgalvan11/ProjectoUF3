@@ -104,7 +104,7 @@ int posDeportes(int numSocio, Socio socio[])
     int posDeporte=ERROR;
     bool thisone = false;
     //+ERROR
-    while(posDeporte<DEPO+ERROR && !thisone)
+    while(posDeporte<DEPO-1 && !thisone)
     {
         posDeporte++;
         //si  hay uni que este vacio
@@ -538,14 +538,7 @@ int  mostrarUnSocio(Socio socis[], int pos)
 
 void destroyUser(Socio socio[], int pos, int& contador)
 {
-    /*
-     Los borro solo cuando es individual
-     //borro todos sus deportes
-     for(int f = 0;f<DEPO;f++)
-     {
-     destroy_Deporte(socio, pos, 0);
-     }
-     */
+
     
     
     
@@ -573,17 +566,19 @@ void destroyUser(Socio socio[], int pos, int& contador)
 
 void destroyDeporte(Socio socio[], int posSoci, int posDepo)
 {
-    if(posDepo<DEPO+ERROR)
+    
+    int macDeportes=DEPO-1;
+    if(posDepo<macDeportes)
     {
-        for(int depoActual = posDepo; depoActual<DEPO+ERROR; depoActual++)
+        for(int depoActual = posDepo; depoActual<macDeportes; depoActual++)
         {
             socio[posSoci].deportes[depoActual]=socio[posSoci].deportes[depoActual+1];
         }
     }
     
     
-    strcpy(socio[posSoci].deportes[DEPO+ERROR].nombre, "");
-    socio[posSoci].deportes[DEPO+ERROR].horas=ERROR;
+    strcpy(socio[posSoci].deportes[macDeportes].nombre, "");
+    socio[posSoci].deportes[macDeportes].horas=ERROR;
     //bool?
     
 }
@@ -606,23 +601,7 @@ void GUARDARFICHERO(Socio socio[], int& contador)
             existentes[i]=socio[i];
             
         }
-        
-        /*
-        //leo el contador de Socios....
-        fichero.open(COUNTFILE, ios::out|ios::trunc);
-        if (fichero.is_open())
-        {
-            fichero << contador;
-            fichero.close();
-        }
-        */
-        
-        
-        //guardo la cantidad de socios en un fichero
-        
-        //-------
-        
-        //cambio el nombre del fichero respectivamente..
+
         lastVersion(filename,false);
         
         fichero.open(filename, ios::out | ios::binary);
@@ -648,37 +627,6 @@ void LEERFICHERO(Socio socis[],int& mainCont)
     string filename = DATSOCIOS;
     fstream fichero;
     
-    /*
-    string s;
-    
-    int numSocis = 0;
-    
-    // N∫ elements que volem llegir
-    fichero.open(COUNTFILE, ios::in);
-    if (fichero.is_open())
-    {//si existe leo el numero de socios en el txt
-        while(!fichero.eof())
-        {
-            getline(fichero, s);
-        }
-        
-        //si encuentra un numero en el fichero
-        if (s.compare("") != 0)
-        {
-            numSocis=stoi(s);
-        }
-        fichero.close();
-        
-        if(numSocis>0 && ifstream(DATSOCIOS))// si el txt me indica que hay socios
-        {
-            
-            mainCont=numSocis;
-            
-            for (int i = 0; i<numSocis; i++)
-            {
-                destroyUser(socis, 0, mainCont);
-            }*/
-            
             clearSocios(socis);
             
             //ya tengo la cantidad de socios en el .dat
@@ -711,27 +659,7 @@ void LEERFICHERO(Socio socis[],int& mainCont)
     cout << "Socios leidos" << i;
         mainCont=i;
     }
-                /*
-                fichero.read((char *)&spawning, sizeof(spawning));
-                for (int pos = 0; pos < numSocis; pos++)
-                {
-                    socis[pos]=spawning[pos];
-                }
-                fichero.close();
-                cout << "Se han cargado los datos" << endl;
-                
-                mainCont=numSocis;
-                 
-            }
-            
-        }else{
-            cout << "El fichero no tiene usuarios guardados..." << endl;
-        }
-    }else{
-        cout << "No hay Datos que cargar..." << endl;
-        space();
-    }
-    */
+
 }
 
 void bajaDeporte(Socio socio[])
@@ -896,100 +824,12 @@ void leerBajasDeportes(Socio socios[])
     
     if(!found)
         cout << "Uy.. no se ha encontrado nada";
-    /*
-     int words = 3;
-     string arr[words];
-     
-     
-     
-     fstream myfile;
-     string lineaDoing;
-     int posLineaALeer = 0;
-     int contLineas = 0;
-     
-     char nombre[SOCI];
-     string input="";
-     
-     
-     cout << "¿Que deporte estas buscando?"<<endl;
-     cin >> nombre;
-     
-     myfile.open(DELDEPOFILE, ios::in);
-     if (myfile.is_open())
-     {
-     while (!myfile.eof())
-     {
-     //obtengo la primera palabra de cada linea(deporte)
-     getline(myfile, lineaDoing);
-     
-     
-     input = getFirst(lineaDoing);
-     
-     //cout << input << endl;
-     
-     if(input=="")
-     {
-     //no hay lienas pongo el cont a 0
-     contLineas--;
-     }else if(strcasecmp(nombre,input.c_str())==0){
-     
-     
-     posLineaALeer=contLineas;
-     }
-     contLineas++;
-     }
-     myfile.close();
-     }
-     
-     if(contLineas==0)
-     cout << "No hay deportes que leer";
-     else if(posLineaALeer>0)
-     {
-     myfile.open(DELDEPOFILE, ios::in);
-     if(myfile.is_open())
-     {
-     int i = ERROR;
-     myfile.seekg(0, ios::beg);
-     while (!myfile.eof() && i<posLineaALeer)
-     {
-     i++;
-     getline(myfile, lineaDoing);
-     
-     }
-     
-     stringstream sin(lineaDoing);
-     
-     string temp;
-     vector<string> Socios;
-     while(getline(sin, temp, ' '))
-     Socios.push_back(temp);
-     
-     //for(auto& itr : Socios)
-     //cout << itr << endl;
-     
-     cout << "Los Socios dados de baja en '" <<  nombre << "':" << endl;
-     for (int i = 1; i<=(Socios.size()-1); i+=2)
-     {
-     cout << endl << Socios[i] << " " <<(Socios[i+1]) << endl;
-     }
-     
-     myfile.close();
-     
-     } else {
-     cout << "Error";
-     }
-     
-     }else{
-     space();
-     cout << "No se ha encontrado nada";
-     }*/
+   
 }
 
 void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
 {
     
-    //Otra manera de Guardar la baja deporte txt
-    //deporte---socio
     
     fstream myfile;
     string lineaDoing;
@@ -1009,113 +849,8 @@ void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
         
         myfile.close();
     }
-    
-    
-    
-    /*
-     //------deporte por linea
-     fstream myfile;
-     string lineaDoing;
-     int posLineaAmodificar = 0;
-     int contLineas = 0;
-     
-     bool found_depo = false;
-     
-     myfile.open(DELDEPOFILE, ios::in);
-     if (myfile.is_open())
-     {
-     while (!myfile.eof())
-     {
-     
-     
-     //obtengo la primera palabra de cada linea(deporte)
-     getline(myfile, lineaDoing);
-     
-     
-     string input = getFirst(lineaDoing);
-     
-     //cout << input << endl;
-     
-     if(input=="")
-     {
-     //no hay lienas pongo el cont a 0
-     contLineas--;
-     }else if(strcmp(socio[posSocio].deportes[posBorrar].nombre,input.c_str())==0){
-     found_depo=true;
-     posLineaAmodificar=contLineas;
-     }
-     contLineas++;
-     
-     }
-     myfile.close();
-     
-     }
-     
-     if(found_depo)
-     {
-     
-     //posLineaAmodificar es en la linea donde esta
-     myfile.open(DELDEPOFILE, ios::in|ios::out);
-     string lineas="";
-     char temp[contLineas][SOCI*3];
-     if (myfile.is_open())
-     {
-     for (int cont=0; cont<contLineas; cont++)
-     {
-     getline(myfile, lineas);
-     //lo salvo al temp
-     strcpy(temp[cont],lineas.c_str());
-     }
-     
-     strcat(temp[posLineaAmodificar], " ");
-     strcat(temp[posLineaAmodificar], socio[posSocio].nombre);
-     
-     
-     
-     myfile.close();
-     }else{
-     cout << "Error abriendo archivo";
-     }
-     
-     
-     myfile.open(DELDEPOFILE, ios::out);
-     if(myfile.is_open())
-     {
-     
-     
-     for (int i = 0; i<contLineas; i++)
-     {
-     myfile << temp[i] << endl;
-     
-     }myfile.close();
-     }else{
-     cout << "Error abriendo archivo";
-     }
-     
-     
-     }else{//si es un deporte nuevo
-     myfile.open(DELDEPOFILE, ios::out | ios::app);
-     
-     if (myfile.is_open())
-     {
-     
-     myfile << socio[posSocio].deportes[posBorrar].nombre;
-     myfile << " " << socio[posSocio].nombre << endl;
-     
-     myfile.close();
-     }else{
-     cout << "Error abriendo archivo";
-     }
-     }
-     */
 }
 
-string getFirst(string linea)
-{
-    long strpos = linea.find(" ");
-    return linea.substr(0, strpos);;
-    
-}
 
 void sumarQuota(Socio socio[], int posSocio,double cuota)
 {

@@ -1,7 +1,7 @@
 #include <iostream>
 
 #define NAM 20
-#define SOCI 5
+#define SOCI 30
 #define DEPO 5
 #define ALLDEPO 30
 #define ERROR -1
@@ -98,8 +98,6 @@ void leerBajasDeportes(Socio socios[]);
 //actualiza el fihcero de baja de deporte
 void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar);
 
-//obtine la primera columna de un txt
-string getFirst(string linea);
 
 void sumarQuota(Socio socio[], int posSocio,double cuotaDep);
 void restarQuota(Socio socio[], int posSocio,double cuotaDep);
