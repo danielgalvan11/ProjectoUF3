@@ -468,53 +468,51 @@ void bajaSocio(Socio socio[], int& contador)
         posSocio = encontrarCodigo(socio, codigo);
         if(posSocio==ERROR)
         {
-            cout << "Error";
+            cout << "Your amigo no found, sorry mate";
         }else{
             
             numDeportes = mostrarUnSocio(socio,posSocio);
             
-            if(numDeportes!=0)
-            {
-                
-                do{
-                    space();
-                    cout << endl << "¿Seguro que quieres dar de baja a "
-                    << socio[posSocio].nombre <<"? (S/N):" << endl;
-                    cin >> ele;
-                }while (ele!='s' && ele!='S' && ele!='N' && ele!='n');
+            
+            do{
                 space();
-                if(ele=='n'||ele=='N')
+                cout << endl << "¿Seguro que quieres dar de baja a "
+                << socio[posSocio].nombre <<"? (S/N):" << endl;
+                cin >> ele;
+            }while (ele!='s' && ele!='S' && ele!='N' && ele!='n');
+            space();
+            if(ele=='n'||ele=='N')
+            {
+                cout<< endl << "No se realizo nada...";
+                space();
+            }else{
+                
+                
+                fstream deleting (DELSOCI, ios::out | ios::app);
+                int posDep=0;
+                if(deleting.is_open())
                 {
-                    cout<< endl << "No se realizo nada...";
-                    space();
-                }else{
+                    //los guardo en el fichero de borrados
                     
-                    
-                    fstream deleting (DELSOCI, ios::out | ios::app);
-                    int posDep=0;
-                    if(deleting.is_open())
-                    {
-                        //los guardo en el fichero de borrados
-                        
-                        if (!(deleting.tellg() == 0)) {
-                            deleting << endl;
-                        }
-                        deleting << socio[posSocio].codSoci << " ";
-                        deleting << socio[posSocio].nombre << " ";
-                        deleting << socio[posSocio].edad;
-                        //deleting << " " << socio[posSocio].quota;
-                        for (posDep = 0; posDep<numDeportes; posDep++)
-                        {
-                            salvaBajaDeporte(socio,posSocio , posDep);
-                            
-                        }deleting.close();
+                    if (!(deleting.tellg() == 0)) {
+                        deleting << endl;
                     }
-                    
-                    destroyUser(socio,posSocio, contador);
-                    
-                    cout << "Un Socio menos :(" << endl;
+                    deleting << socio[posSocio].codSoci << " ";
+                    deleting << socio[posSocio].nombre << " ";
+                    deleting << socio[posSocio].edad;
+                    //deleting << " " << socio[posSocio].quota;
+                    for (posDep = 0; posDep<numDeportes; posDep++)
+                    {
+                        salvaBajaDeporte(socio,posSocio , posDep);
+                        
+                    }deleting.close();
                 }
+                
+                destroyUser(socio,posSocio, contador);
+                
+                cout << "Un Socio menos :(" << endl;
             }
+            
         }
     }
 }
