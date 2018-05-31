@@ -4,9 +4,7 @@
 #include <stdlib.h>
 #include <fstream>
 
-
-
-void initialize(Socio socio[], Deporte depo[])
+void clearSocios(Socio socio[])
 {
     for(int i=0;i<SOCI;i++)
     {
@@ -15,8 +13,15 @@ void initialize(Socio socio[], Deporte depo[])
         strcpy(socio[i].nombre, "");
         socio[i].edad=ERROR;
         socio[i].quota=ERROR;
-        
-        
+    }
+}
+
+void initialize(Socio socio[], Deporte depo[])
+{
+    
+    clearSocios(socio);
+    for(int i=0;i<ALLDEPO;i++)
+    {
         //el array de deporte
         strcpy(depo[i].nombre, "");
         depo[i].horas=ERROR;
@@ -119,7 +124,7 @@ void altaSocio(Socio socio[], int& cont)
 {
     
     if(cont>=SOCI){
-        cout << "\nYa el club esta a petar, " << cont << " socios ya estan inscritos!";
+        cout << "\nYa el club esta a petar, " << SOCI << " socios ya estan inscritos!";
     }else{
         cout << "\nIngrese el codigo de socio: ";
         int codio;
@@ -303,7 +308,7 @@ void matricularToDeporte(Socio socio[], Deporte sports[])
         
         if(posDeporte==ERROR)
         {
-            cout << endl << "Full de deportes";
+            cout << endl << "Ya este socio tiene " << DEPO << " Deportes registrados";
         }else{
             space();
             
@@ -588,59 +593,54 @@ void GUARDARFICHERO(Socio socio[], int& contador)
     string filename = DATSOCIOS;
     fstream fichero;
     
-    bool found = false;
     
-    //because array
-    
-    if (contador <=0)
+    if (contador == 0)
     {
         cout << "No hay datos para guardar...";
     }else{
-        Socio existentes[contador];
+        Socio existentes[SOCI];
         
         for (int i = 0; i < contador; i++)
         {
-            if(socio[i].codSoci != ERROR)
-            {
-                existentes[i]=socio[i];
-                found=true;
-            }
+            //confio en mi contador
+            existentes[i]=socio[i];
+            
         }
         
-        
-        if(found)
+        /*
+        //leo el contador de Socios....
+        fichero.open(COUNTFILE, ios::out|ios::trunc);
+        if (fichero.is_open())
         {
-            fichero.open(COUNTFILE, ios::out);
-            if (fichero.is_open())
-            {
-                fichero << contador;
-                fichero.close();
+            fichero << contador;
+            fichero.close();
+        }
+        */
+        
+        
+        //guardo la cantidad de socios en un fichero
+        
+        //-------
+        
+        //cambio el nombre del fichero respectivamente..
+        lastVersion(filename,false);
+        
+        fichero.open(filename, ios::out | ios::binary);
+        if(!fichero.is_open())
+        {
+            cout << "error";
+        }else{
+            for (int i = 0; i<contador; i++) {
+                fichero.write((const char*)&existentes[i], sizeof(Socio));
             }
             
+            cout << "Se han guardado los datos" << endl;
             
             
-            //guardo la cantidad de socios en un fichero
-            
-            //-------
-            
-            lastVersion(filename,false);
-            
-            fichero.open(filename, ios::out | ios::binary);
-            if(!fichero.is_open())
-            {
-                cout << "error";
-            }else{
-                
-                fichero.write((const char*)&existentes, sizeof(existentes));
-                cout << "Se han guardado los datos" << endl;
-                
-                
-                fichero.close();
-            }
-        } else {
-            cout << "No se encontro el Deporte";
+            fichero.close();
         }
     }
+    
 }
 
 void LEERFICHERO(Socio socis[],int& mainCont)
@@ -648,7 +648,7 @@ void LEERFICHERO(Socio socis[],int& mainCont)
     string filename = DATSOCIOS;
     fstream fichero;
     
-    
+    /*
     string s;
     
     int numSocis = 0;
@@ -677,17 +677,41 @@ void LEERFICHERO(Socio socis[],int& mainCont)
             for (int i = 0; i<numSocis; i++)
             {
                 destroyUser(socis, 0, mainCont);
-            }
+            }*/
             
+            clearSocios(socis);
             
             //ya tengo la cantidad de socios en el .dat
             lastVersion(filename,true);
             
             
-            Socio spawning[numSocis];
+            Socio spawning[SOCI];
             fichero.open(filename, ios::in | ios::binary);
+            int i =0;
             if (fichero.is_open())
             {
+                
+                do
+                {
+                    fichero.read((char *)&spawning[i], sizeof(Socio));
+                    
+                    if(spawning[i].codSoci!=0){
+                    socis[i]=spawning[i];
+                    i++;
+                    }
+                } while (!fichero.eof());
+                fichero.close();
+                
+            }
+    
+    if (i<=0) {
+        cout << "NADA";
+    }else{
+    
+    cout << "Socios leidos" << i;
+        mainCont=i;
+    }
+                /*
                 fichero.read((char *)&spawning, sizeof(spawning));
                 for (int pos = 0; pos < numSocis; pos++)
                 {
@@ -697,6 +721,7 @@ void LEERFICHERO(Socio socis[],int& mainCont)
                 cout << "Se han cargado los datos" << endl;
                 
                 mainCont=numSocis;
+                 
             }
             
         }else{
@@ -706,6 +731,7 @@ void LEERFICHERO(Socio socis[],int& mainCont)
         cout << "No hay Datos que cargar..." << endl;
         space();
     }
+    */
 }
 
 void bajaDeporte(Socio socio[])
@@ -848,7 +874,7 @@ void leerBajasDeportes(Socio socios[])
             //obtengo el nombre del deporte
             myfile >> deporte;
             
-
+            
             //si el nombre del deporte es igual al indicado por el usuario
             if(deporte.compare(input)==0)
             {
@@ -977,7 +1003,7 @@ void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
         if (!(myfile.tellg() == 0)) {
             myfile << endl;
         }
-
+        
         myfile << socio[posSocio].deportes[posBorrar].nombre;
         myfile << " " << socio[posSocio].nombre;
         

@@ -1,7 +1,7 @@
 #include <iostream>
 
 #define NAM 20
-#define SOCI 30
+#define SOCI 5
 #define DEPO 5
 #define ALLDEPO 30
 #define ERROR -1
@@ -31,6 +31,9 @@ struct Socio
     double quota;
     Deporte deportes[DEPO];
 };
+
+//reset de los socios
+void clearSocios(Socio socio[]);
 
 //inicializa todos los datos
 void initialize(Socio socio[], Deporte[]);
