@@ -236,10 +236,11 @@ int checkInt()
         if (cin.good())
         {
             //todo salio bien, continuamos el programa
-            valid = true;
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
             if(input<0)
                 cout << "El numero tiene que ser positivo: ";
+            else
+                valid = true;
         }
         else
         {
@@ -255,7 +256,7 @@ int checkInt()
     return (input);
 }
 
-float checkDouble()
+double checkDouble()
 {
     double input=ERROR;
     bool valid= false;
@@ -265,10 +266,11 @@ float checkDouble()
         if (cin.good())
         {
             //todo salio bien, continuamos el programa
-            valid = true;
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
             if(input<0)
                 cout << "El numero tiene que ser positivo: ";
+            else
+                valid = true;
         }
         else
         {
@@ -278,7 +280,7 @@ float checkDouble()
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
             cout << "\nError, ingrese un numero: ";
         }
-    } while (!valid || input<0);
+    } while (!valid);
     
     return (input);
 }
@@ -656,7 +658,7 @@ void LEERFICHERO(Socio socis[],int& mainCont)
         cout << "No existen datos que cargar";
     }else{
         
-        cout << "Socios leidos" << i;
+        cout << i << " Socios cargados al programa";
         mainCont=i;
     }
     
@@ -854,16 +856,6 @@ void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
     }
 }
 
-
-void sumarQuota(Socio socio[], int posSocio,double cuota)
-{
-    socio[posSocio].quota+=cuota;
-}
-void restarQuota(Socio socio[], int posSocio, double cuota)
-{
-    socio[posSocio].quota-=cuota;
-}
-
 void edadesDeportes(Socio socis[])
 {
     if(atLeastOneSocio(socis))
@@ -874,7 +866,7 @@ void edadesDeportes(Socio socis[])
         
         if(myfile.is_open())
         {
-            for (int age = 14; age < VEJEZ; age++)
+            for (int age = YOUTH; age < VEJEZ; age++)
             {
                 
                 for (int posSoci = 0; posSoci < SOCI; posSoci++)
@@ -902,5 +894,14 @@ void edadesDeportes(Socio socis[])
             myfile.close();
         }
     }
+}
+
+void sumarQuota(Socio socio[], int posSocio,double cuota)
+{
+    socio[posSocio].quota+=cuota;
+}
+void restarQuota(Socio socio[], int posSocio, double cuota)
+{
+    socio[posSocio].quota-=cuota;
 }
 

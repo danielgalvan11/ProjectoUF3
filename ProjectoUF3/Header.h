@@ -6,6 +6,7 @@
 #define ALLDEPO 30
 #define ERROR -1
 #define VEJEZ 100
+#define YOUTH 16
 
 
 #define DATASPORTS "dadesEsports.txt"
@@ -43,7 +44,7 @@ void space();
 
 //inicializa todos los datos
 void hellofriend(Socio socio[], Deporte[]);
-//reset de los socios
+//blanqueo de los socios
 void clearSocios(Socio socio[]);
 
 //realiza un alta del socio
@@ -57,16 +58,16 @@ int encontrarCodigo(Socio socio[], int codigo);
 //verificar si el int es correcto
 int checkInt();
 //verificar si el float es correcto
-float checkDouble();
+double checkDouble();
 
 //matricula un deporte a un socio
 void matriculartoDeporte(Socio socio[], Deporte sports[]);
 //obtiene una posicion vacia de deporte de cierto usuario, ERROR si esta llena
 int posDeportes(int numSocio, Socio socio[]);
-//muestra y cuenta los deporte a matricular
+//muestra y cuenta los deportes disponibles
 int mostrarTodoDeportes(Deporte depo[]);
 
-//muestra los deportes alta de un socio y devuelve el nº
+//muestra los deportes alta de un socio y devuelve el nº inscrito
 int printDeportesUser(Socio socis[],int pos);
 //pide codigo de socio y muestra los deportes
 void mostrarDeporteUnSocio(Socio soci[]);
@@ -102,7 +103,6 @@ void destroyDeporte(Socio socio[], int posSoci, int posDepo);
 
 //genera fichero por edades
 void edadesDeportes(Socio socis[]);
-
 
 
 //suma la quota (de un deporte) al socio
