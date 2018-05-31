@@ -866,36 +866,41 @@ void restarQuota(Socio socio[], int posSocio, double cuota)
 
 void edadesDeportes(Socio socis[])
 {
-    fstream myfile;
-    myfile.open(EDADSOCI, ios::out);
-    bool aff=false;
-    
-    if(myfile.is_open())
+    if(atLeastOneSocio(socis))
     {
-        for (int age = 14; age < VEJEZ; age++)
+        fstream myfile;
+        myfile.open(EDADSOCI, ios::out);
+        bool aff=false;
+        
+        if(myfile.is_open())
         {
-            
-            for (int posSoci = 0; posSoci < SOCI; posSoci++)
+            for (int age = 14; age < VEJEZ; age++)
             {
                 
-                if (socis[posSoci].edad==age)
+                for (int posSoci = 0; posSoci < SOCI; posSoci++)
                 {
-                    if(aff)
+                    
+                    if (socis[posSoci].edad==age)
                     {
-                        myfile << "-----------" << endl;
-                        aff=false;
+                        if(aff)
+                        {
+                            myfile << "-----------" << endl;
+                            aff=false;
+                        }
+                        myfile << age << " años: "<< endl;
+                        myfile << socis[posSoci].codSoci <<" - ";
+                        myfile << socis[posSoci].nombre << endl;
+                        aff=true;
                     }
-                    myfile << age << " años: "<< endl;
-                    myfile << socis[posSoci].codSoci <<" - ";
-                    myfile << socis[posSoci].nombre << endl;
-                    aff=true;
+                    
                 }
                 
             }
             
+            cout << "Se ha creado el fichero por edades";
+            
+            myfile.close();
         }
-        
-        myfile.close();
     }
 }
 
