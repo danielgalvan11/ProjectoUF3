@@ -16,7 +16,7 @@ void clearSocios(Socio socio[])
     }
 }
 
-void initialize(Socio socio[], Deporte depo[])
+void hellofriend(Socio socio[], Deporte depo[])
 {
     
     clearSocios(socio);
@@ -66,8 +66,7 @@ bool atLeastOneSocio(Socio socio[])
 {
     bool there=false;
     
-    int i=0;
-    if(socio[i].codSoci!=ERROR)
+    if(socio[0].codSoci!=ERROR)
         there=true;
     
     if(!there)
@@ -284,7 +283,7 @@ float checkDouble()
     return (input);
 }
 
-void matricularToDeporte(Socio socio[], Deporte sports[])
+void matriculartoDeporte(Socio socio[], Deporte sports[])
 {
     int codigo=ERROR;
     int posSocio=ERROR;
@@ -342,7 +341,7 @@ void matricularToDeporte(Socio socio[], Deporte sports[])
                 {
                     //le añado la casilla de deportes al usuario
                     socio[posSocio].deportes[posDeporte]=sports[decision];
-                    //double cuota= sports[decision].precio;
+                    //double cuota = sports[decision].precio;
                     
                     //actualizo la cuota el usuario
                     //sumarQuota(socio, posSocio, cuota);
@@ -378,7 +377,7 @@ int mostrarTodoDeportes(Deporte depo[])
     return numDeportes;
 }
 
-void mostrarSocios(Socio socis[], int& contSocios)
+void mostrarallSocios(Socio socis[], int& contSocios)
 {
     
     if(atLeastOneSocio(socis))
@@ -491,16 +490,19 @@ void bajaSocio(Socio socio[], int& contador)
                 }else{
                     
                     
-                    ofstream deleting (DELSOCIFILE, ofstream::out | ofstream::app);
+                    fstream deleting (DELSOCI, ios::out | ios::app);
                     int posDep=0;
                     if(deleting.is_open())
                     {
                         //los guardo en el fichero de borrados
                         
+                        if (!(deleting.tellg() == 0)) {
+                            deleting << endl;
+                        }
                         deleting << socio[posSocio].codSoci << " ";
                         deleting << socio[posSocio].nombre << " ";
-                        deleting << socio[posSocio].edad << endl;
-                        //deleting << " " << socio[posSocio].quota << endl;
+                        deleting << socio[posSocio].edad;
+                        //deleting << " " << socio[posSocio].quota;
                         for (posDep = 0; posDep<numDeportes; posDep++)
                         {
                             salvaBajaDeporte(socio,posSocio , posDep);
@@ -538,7 +540,7 @@ int  mostrarUnSocio(Socio socis[], int pos)
 
 void destroyUser(Socio socio[], int pos, int& contador)
 {
-
+    
     
     
     
@@ -601,7 +603,7 @@ void GUARDARFICHERO(Socio socio[], int& contador)
             existentes[i]=socio[i];
             
         }
-
+        
         lastVersion(filename,false);
         
         fichero.open(filename, ios::out | ios::binary);
@@ -627,39 +629,39 @@ void LEERFICHERO(Socio socis[],int& mainCont)
     string filename = DATSOCIOS;
     fstream fichero;
     
-            clearSocios(socis);
+    clearSocios(socis);
+    
+    //ya tengo la cantidad de socios en el .dat
+    lastVersion(filename,true);
+    
+    
+    Socio spawning[SOCI];
+    fichero.open(filename, ios::in | ios::binary);
+    int i =0;
+    if (fichero.is_open())
+    {
+        
+        do
+        {
+            fichero.read((char *)&spawning[i], sizeof(Socio));
             
-            //ya tengo la cantidad de socios en el .dat
-            lastVersion(filename,true);
-            
-            
-            Socio spawning[SOCI];
-            fichero.open(filename, ios::in | ios::binary);
-            int i =0;
-            if (fichero.is_open())
-            {
-                
-                do
-                {
-                    fichero.read((char *)&spawning[i], sizeof(Socio));
-                    
-                    if(spawning[i].codSoci!=0){
-                    socis[i]=spawning[i];
-                    i++;
-                    }
-                } while (!fichero.eof());
-                fichero.close();
-                
+            if(spawning[i].codSoci!=0){
+                socis[i]=spawning[i];
+                i++;
             }
+        } while (!fichero.eof());
+        fichero.close();
+        
+    }
     
     if (i<=0) {
-        cout << "NADA";
+        cout << "No existen datos que cargar";
     }else{
-    
-    cout << "Socios leidos" << i;
+        
+        cout << "Socios leidos" << i;
         mainCont=i;
     }
-
+    
 }
 
 void bajaDeporte(Socio socio[])
@@ -729,51 +731,54 @@ void bajaDeporte(Socio socio[])
 void lastVersion(string &file, bool read)
 {
     int ver=0;
+    
+    string ext = ").dat";
     if(!read)
     {
         if (ifstream(file))
         {
             file=file.substr(0, file.length() - 4);
             ver++;
-            file=file + "(" + to_string(ver) + ").dat";
+            file=file + "(" + to_string(ver) + ext;
             
             while(ifstream(file))
             {
                 file=file.substr(0, file.length() - 7);
                 ver++;
-                file=file + "(" + to_string(ver) + ").dat";
+                file=file + "(" + to_string(ver) + ext;
             }
         }
-    }else if(read){
+    }else{
         if(ifstream(file))
         {
             //si existe el archivo original, puebo el siguiente
             file=file.substr(0, file.length()-4);
             ver++;
-            file=file + "(" + to_string(ver) + ").dat";
+            file=file + "(" + to_string(ver) + ext;
             //si existe (1)
             if(ifstream(file))
             {
                 file=file.substr(0, file.length() - 7);
                 ver++;
-                file=file + "(" + to_string(ver) + ").dat";
+                file=file + "(" + to_string(ver) + ext;
                 
                 //pruebo con (2)
                 while(ifstream(file))
                 {
                     file=file.substr(0, file.length() - 7);
                     ver++;
-                    file=file + "(" + to_string(ver) + ").dat";
+                    file=file + "(" + to_string(ver) + ext;
                 }
                 //cuando no encuentre un numero (num)..
                 //le indico que lea el ultimo que econtro
                 file=file.substr(0, file.length() - 7);
                 ver--;
-                file=file + "(" + to_string(ver) + ").dat";
+                file=file + "(" + to_string(ver) + ext;
             }else{
                 //cargo el original si no hay (1)..
                 file=file.substr(0, file.length() - 7);
-                file=file + ".dat";
+                ext=ext.substr(1,ext.length());
+                file=file + ext;
             }
             
         }
@@ -794,7 +799,7 @@ void leerBajasDeportes(Socio socios[])
     
     space();
     cout << "Pues..." << endl << endl;
-    myfile.open(DELDEPOFILE, ios::in);
+    myfile.open(DELDEPO, ios::in);
     if (myfile.is_open())
     {
         while (!myfile.eof())
@@ -824,7 +829,7 @@ void leerBajasDeportes(Socio socios[])
     
     if(!found)
         cout << "Uy.. no se ha encontrado nada";
-   
+    
 }
 
 void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
@@ -835,7 +840,7 @@ void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
     string lineaDoing;
     
     
-    myfile.open(DELDEPOFILE, ios::out | ios::app);
+    myfile.open(DELDEPO, ios::out | ios::app);
     
     if (myfile.is_open())
     {
@@ -863,6 +868,36 @@ void restarQuota(Socio socio[], int posSocio, double cuota)
 
 void edadesDeportes(Socio socis[])
 {
+    fstream myfile;
+    myfile.open(EDADSOCI, ios::out);
+    bool aff=false;
     
+    if(myfile.is_open())
+    {
+        for (int age = 14; age < VEJEZ; age++)
+        {
+            
+            for (int posSoci = 0; posSoci < SOCI; posSoci++)
+            {
+                
+                if (socis[posSoci].edad==age)
+                {
+                    if(aff)
+                    {
+                        myfile << "-----------" << endl;
+                        aff=false;
+                    }
+                    myfile << age << " años: "<< endl;
+                    myfile << socis[posSoci].codSoci <<" - ";
+                    myfile << socis[posSoci].nombre << endl;
+                    aff=true;
+                }
+                
+            }
+            
+        }
+        
+        myfile.close();
+    }
 }
 

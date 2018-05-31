@@ -11,7 +11,7 @@ int main(int argc, const char * argv[])
     Socio socis[SOCI];
     Deporte allDeportes[ALLDEPO];
     
-    initialize(socis,allDeportes);
+    hellofriend(socis,allDeportes);
     
     int resp=-1;
     do
@@ -25,10 +25,10 @@ int main(int argc, const char * argv[])
                     altaSocio(socis, contSocios);
                     break;
                 case 2:
-                matricularToDeporte(socis,allDeportes);
+                matriculartoDeporte(socis,allDeportes);
                     break;
                 case 3:
-                    mostrarSocios(socis, contSocios);
+                    mostrarallSocios(socis, contSocios);
                     break;
                 case 4:
                     mostrarDeporteUnSocio(socis);

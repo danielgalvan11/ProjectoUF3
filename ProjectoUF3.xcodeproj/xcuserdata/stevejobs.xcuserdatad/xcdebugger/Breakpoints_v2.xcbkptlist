@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.h"
-            timestampString = "549425232.330804"
+            timestampString = "549434395.104714"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.h"
-            timestampString = "549425232.332779"
+            timestampString = "549434395.106102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "Deporte"
             landmarkType = "14">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.h"
-            timestampString = "549425232.334311"
+            timestampString = "549434395.107137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9"
-            endingLineNumber = "9"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.3349921"
+            timestampString = "549434395.1080689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "28"
             endingLineNumber = "28"
-            landmarkName = "initialize(Socio socio[], Deporte depo[])"
+            landmarkName = "hellofriend(Socio socio[], Deporte depo[])"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.335747"
+            timestampString = "549434395.108961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "altaSocio(Socio socio[], int&amp; cont)"
             landmarkType = "9">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.336228"
+            timestampString = "549434395.1096261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "mostrarTodoDeportes(Deporte depo[])"
             landmarkType = "9">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.336661"
+            timestampString = "549434395.1101429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "414"
-            endingLineNumber = "414"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "printDeportesUser(Socio socis[],int posSocio)"
             landmarkType = "9">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.337096"
+            timestampString = "549434395.110664"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "503"
-            endingLineNumber = "503"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "bajaSocio(Socio socio[], int&amp; contador)"
             landmarkType = "9">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.337531"
+            timestampString = "549434395.111402"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
             landmarkName = "mostrarUnSocio(Socio socis[], int pos)"
             landmarkType = "9">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.337968"
+            timestampString = "549434395.112563"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "712"
-            endingLineNumber = "712"
+            startingLineNumber = "714"
+            endingLineNumber = "714"
             landmarkName = "bajaDeporte(Socio socio[])"
             landmarkType = "9">
          </BreakpointContent>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.338544"
+            timestampString = "549434395.1133111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "348"
-            endingLineNumber = "348"
-            landmarkName = "matricularToDeporte(Socio socio[], Deporte sports[])"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
+            landmarkName = "matriculartoDeporte(Socio socio[], Deporte sports[])"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.339027"
+            timestampString = "549434395.113935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "601"
-            endingLineNumber = "601"
+            startingLineNumber = "603"
+            endingLineNumber = "603"
             landmarkName = "GUARDARFICHERO(Socio socio[], int&amp; contador)"
             landmarkType = "9">
          </BreakpointContent>
@@ -202,27 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.339461"
+            timestampString = "549434395.114388"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "647"
-            endingLineNumber = "647"
-            landmarkName = "LEERFICHERO(Socio socis[],int&amp; mainCont)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.33996"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
+            startingLineNumber = "615"
+            endingLineNumber = "615"
             landmarkName = "GUARDARFICHERO(Socio socio[], int&amp; contador)"
             landmarkType = "9">
          </BreakpointContent>
@@ -234,12 +218,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjectoUF3/Header.cpp"
-            timestampString = "549425232.340335"
+            timestampString = "549434395.114808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
-            landmarkName = "LEERFICHERO(Socio socis[],int&amp; mainCont)"
+            startingLineNumber = "752"
+            endingLineNumber = "752"
+            landmarkName = "lastVersion(string &amp;file, bool read)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
