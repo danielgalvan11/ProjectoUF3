@@ -13,7 +13,7 @@
 #define DATASPORTS "dadesEsports.txt"
 #define DELDEPO "bajasDeportes.txt"
 #define DELSOCI "baixaSocis.txt"
-#define DATSOCIOS "saved/infoSocis.dat"
+#define DATSOCIOS "infoSocis.dat"
 #define EDADSOCI "edadSports.txt"
 
 using namespace std;

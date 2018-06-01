@@ -3,16 +3,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fstream>
-
+#include <string>
 void clearSocios(Socio socio[])
 {
-    for(int i=0;i<SOCI;i++)
+    for (int i = 0; i<SOCI; i++)
     {
         //todos los socios
-        socio[i].codSoci=ERROR;
+        socio[i].codSoci = ERROR;
         strcpy(socio[i].nombre, "");
-        socio[i].edad=ERROR;
-        socio[i].quota=ERROR;
+        socio[i].edad = ERROR;
+        socio[i].quota = ERROR;
     }
 }
 
@@ -20,11 +20,11 @@ void hellofriend(Socio socio[], Deporte depo[])
 {
     
     clearSocios(socio);
-    for(int i=0;i<ALLDEPO;i++)
+    for (int i = 0; i<ALLDEPO; i++)
     {
         //el array de deporte
         strcpy(depo[i].nombre, "");
-        depo[i].horas=ERROR;
+        depo[i].horas = ERROR;
         //depo[i].precio=ERROR;
         
     }
@@ -39,23 +39,24 @@ void hellofriend(Socio socio[], Deporte depo[])
     myfile.open(filename, ios::in);
     if (myfile.is_open())
     {
-        do{
+        do {
             
             myfile >> depo[i].nombre;
             
             
             myfile >> time;
-            if(time=='T')
+            if (time == 'T')
             {
-                depo[i].morning=true;
-            }else{
-                depo[i].morning=false;
+                depo[i].morning = true;
+            }
+            else {
+                depo[i].morning = false;
             }
             
             myfile >> depo[i].horas;
             
             i++;
-        }while (!myfile.eof());
+        } while (!myfile.eof());
         
         myfile.close();
     }
@@ -64,12 +65,12 @@ void hellofriend(Socio socio[], Deporte depo[])
 
 bool atLeastOneSocio(Socio socio[])
 {
-    bool there=false;
+    bool there = false;
     
-    if(socio[0].codSoci!=ERROR)
-        there=true;
+    if (socio[0].codSoci != ERROR)
+        there = true;
     
-    if(!there)
+    if (!there)
     {
         space();
         cout << "No hay socios Matriculados, presione '1' para Matricular" << endl;
@@ -79,18 +80,18 @@ bool atLeastOneSocio(Socio socio[])
 
 int encontrarCodigo(Socio socio[], int codigo)
 {
-    bool found=false;
-    int i=ERROR;
+    bool found = false;
+    int i = ERROR;
     
-    while (i<SOCI && found==false)
+    while (i<SOCI && found == false)
     {
         i++;
-        if(codigo==socio[i].codSoci)
+        if (codigo == socio[i].codSoci)
         {
-            found=true;
+            found = true;
         }
     }
-    if(!found)
+    if (!found)
     {
         i = ERROR;
     }
@@ -100,21 +101,21 @@ int encontrarCodigo(Socio socio[], int codigo)
 
 int posDeportes(int numSocio, Socio socio[])
 {
-    int posDeporte=ERROR;
+    int posDeporte = ERROR;
     bool thisone = false;
     //+ERROR
-    while(posDeporte<DEPO-1 && !thisone)
+    while (posDeporte<DEPO - 1 && !thisone)
     {
         posDeporte++;
         //si  hay uni que este vacio
-        if((strcmp(socio[numSocio].deportes[posDeporte].nombre, "") == 0))
+        if ((strcmp(socio[numSocio].deportes[posDeporte].nombre, "") == 0))
         {
-            thisone=true;
+            thisone = true;
         }
     }
-    if(!thisone)
+    if (!thisone)
     {
-        posDeporte=ERROR;
+        posDeporte = ERROR;
     }
     return posDeporte;
 }
@@ -122,19 +123,21 @@ int posDeportes(int numSocio, Socio socio[])
 void altaSocio(Socio socio[], int& cont)
 {
     
-    if(cont>=SOCI){
+    if (cont >= SOCI) {
         cout << "\nYa el club esta a petar, " << SOCI << " socios ya estan inscritos!";
-    }else{
+    }
+    else {
         cout << "\nIngrese el codigo de socio: ";
         int codio;
         codio = checkInt();
         
-        int posCod=encontrarCodigo(socio, codio);
+        int posCod = encontrarCodigo(socio, codio);
         
-        if(posCod!=ERROR)
+        if (posCod != ERROR)
         {
             cout << "\nEste Socio ya esta registrado";
-        }else{
+        }
+        else {
             Socio so;
             
             
@@ -155,26 +158,26 @@ void altaSocio(Socio socio[], int& cont)
             //fin
             
             
-            so.codSoci=codio;
+            so.codSoci = codio;
             
             strcpy(so.nombre, fullname);
             
             cout << "\nSu Edad: ";
-            so.edad=checkInt();
+            so.edad = checkInt();
             
             cout << "\nSu Quota: ";
-            so.quota=checkDouble();
+            so.quota = checkDouble();
             
             //inicializo su array de deportes
-            for(int f = 0;f<DEPO;f++)
+            for (int f = 0; f<DEPO; f++)
             {
                 strcpy(so.deportes[f].nombre, "");
-                so.deportes[f].horas=ERROR;
+                so.deportes[f].horas = ERROR;
                 
             }
             
             //guardo el socio en el espacio disponible
-            socio[findSpace(socio)]=so;
+            socio[findSpace(socio)] = so;
             cont++;
             
             space();
@@ -188,7 +191,7 @@ void altaSocio(Socio socio[], int& cont)
 int findSpace(Socio socio[])
 {
     int i = 0;
-    while(socio[i].codSoci!=ERROR && i<SOCI){
+    while (socio[i].codSoci != ERROR && i<SOCI) {
         //recorro el array hasta encontrar un espacio vacio
         i++;
     };
@@ -198,19 +201,19 @@ int findSpace(Socio socio[])
 int menu()
 {
     int cho;
-    cout << endl << "Club Esportiu Politècnics\n";
+    cout << endl << "Club Esportiu Politécnics\n";
     
-    cout <<"    1. Alta Socio\n";
-    cout <<"    2. Matricular Socio en un Deporte\n";
-    cout <<"    3. Mostrar Socios\n";
-    cout <<"    4. Mostrar Deportes de un Socio\n";
-    cout <<"    5. Baja Socio\n";
-    cout <<"    6. Baja de un deporte Socio\n";
-    cout <<"    7. LOAD Datos del fichero\n";
-    cout <<"    8. SAVE Datos del fichero\n";
-    cout <<"    9. Generar fichero de Socios por Edad\n";
-    cout <<"    10.Socios dados de baja al Deporte\n";
-    cout <<"    0. Salir\n";
+    cout << "    1. Alta Socio\n";
+    cout << "    2. Matricular Socio en un Deporte\n";
+    cout << "    3. Mostrar Socios\n";
+    cout << "    4. Mostrar Deportes de un Socio\n";
+    cout << "    5. Baja Socio\n";
+    cout << "    6. Baja de un deporte Socio\n";
+    cout << "    7. LOAD Datos del fichero\n";
+    cout << "    8. SAVE Datos del fichero\n";
+    cout << "    9. Generar fichero de Socios por Edad\n";
+    cout << "    10.Socios dados de baja al Deporte\n";
+    cout << "    0. Salir\n";
     
     cout << endl << endl << "Opcion: ";
     
@@ -221,13 +224,13 @@ int menu()
 
 void space()
 {
-    cout<<"\n\n\n\n";
+    cout << "\n\n\n\n";
 }
 
 int checkInt()
 {
-    int input=ERROR;
-    bool valid= false;
+    int input = ERROR;
+    bool valid = false;
     do
     {
         
@@ -236,8 +239,8 @@ int checkInt()
         if (cin.good())
         {
             //todo salio bien, continuamos el programa
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            if(input<0)
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (input<0)
                 cout << "El numero tiene que ser positivo: ";
             else
                 valid = true;
@@ -247,7 +250,7 @@ int checkInt()
             //algo salio mal, reseteamos el state del buffer a 'ok'
             cin.clear();
             //lo vaciamos
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "\nError, ingrese un numero: ";
         }
         
@@ -258,16 +261,16 @@ int checkInt()
 
 double checkDouble()
 {
-    double input=ERROR;
-    bool valid= false;
+    double input = ERROR;
+    bool valid = false;
     do
     {
         cin >> input;
         if (cin.good())
         {
             //todo salio bien, continuamos el programa
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            if(input<0)
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (input<0)
                 cout << "El numero tiene que ser positivo: ";
             else
                 valid = true;
@@ -277,7 +280,7 @@ double checkDouble()
             //algo salio mal, reseteamos el state del buffer a 'ok'
             cin.clear();
             //lo vaciamos
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "\nError, ingrese un numero: ";
         }
     } while (!valid);
@@ -287,67 +290,68 @@ double checkDouble()
 
 void matriculartoDeporte(Socio socio[], Deporte sports[])
 {
-    int codigo=ERROR;
-    int posSocio=ERROR;
-    int decision=ERROR;
-    int numDeportes=ERROR;
-    int posDeporte=ERROR;
+    int codigo = ERROR;
+    int posSocio = ERROR;
+    int decision = ERROR;
+    int numDeportes = ERROR;
+    int posDeporte = ERROR;
     
     
-    if(atLeastOneSocio(socio))
+    if (atLeastOneSocio(socio))
     {
-        do{
+        do {
             
             cout << "\nIngrese Codigo de Socio: ";
-            codigo=checkInt();
+            codigo = checkInt();
             
             posSocio = encontrarCodigo(socio, codigo);
-            if(posSocio==ERROR){cout << endl << "\nTry Again: " << endl;}
-        }while(posSocio==ERROR);
+            if (posSocio == ERROR) { cout << endl << "\nTry Again: " << endl; }
+        } while (posSocio == ERROR);
         
-        posDeporte=posDeportes(posSocio, socio);
+        posDeporte = posDeportes(posSocio, socio);
         
-        if(posDeporte==ERROR)
+        if (posDeporte == ERROR)
         {
             cout << endl << "Ya este socio tiene " << DEPO << " Deportes registrados";
-        }else{
+        }
+        else {
             space();
             
-            numDeportes=mostrarTodoDeportes(sports);
+            numDeportes = mostrarTodoDeportes(sports);
             
-            if(numDeportes!=0)
+            if (numDeportes != 0)
             {
-                do{
-                    cout << endl << "Seleccione cual desea añadir: ";
-                    decision=checkInt();
-                }while(decision<=0 || decision>numDeportes);
+                do {
+                    cout << endl << "Seleccione cual desea aÒadir: ";
+                    decision = checkInt();
+                } while (decision <= 0 || decision>numDeportes);
                 
                 //las opciones son del 1 al 9
                 //pero el array de 0 a 8, por ende le aplico un patch
                 decision--;
                 
-                bool already=false;
+                bool already = false;
                 
                 for (int i = 0; i<DEPO; i++)
                 {
-                    if(strcmp(socio[posSocio].deportes[i].nombre, sports[decision].nombre)==0)
+                    if (strcmp(socio[posSocio].deportes[i].nombre, sports[decision].nombre) == 0)
                     {
-                        if(socio[posSocio].deportes[i].morning == sports[decision].morning)
+                        if (socio[posSocio].deportes[i].morning == sports[decision].morning)
                         {
-                            already=true;
-                            cout << endl << "El Socio ya esta matriculado en este Deporte"<< endl;
+                            already = true;
+                            cout << endl << "El Socio ya esta matriculado en este Deporte" << endl;
                         }
                     }
                 }
-                if(!already)
+                if (!already)
                 {
-                    //le añado la casilla de deportes al usuario
-                    socio[posSocio].deportes[posDeporte]=sports[decision];
+                    //le aÒado la casilla de deportes al usuario
+                    socio[posSocio].deportes[posDeporte] = sports[decision];
                     //double cuota = sports[decision].precio;
                     
                     //actualizo la cuota el usuario
                     //sumarQuota(socio, posSocio, cuota);
-                    cout << endl << "Se ha Matriculado el Socio '"<< socio[posSocio].nombre
+                    cout << endl << "Se ha Matriculado el Socio '" << socio[posSocio].nombre
                     << "' en el Deporte '" << sports[decision].nombre << "' ";
                 }
             }
@@ -357,13 +361,13 @@ void matriculartoDeporte(Socio socio[], Deporte sports[])
 
 int mostrarTodoDeportes(Deporte depo[])
 {
-    int numDeportes=0;
+    int numDeportes = 0;
     cout << "Estos son los Deportes disponibles: " << endl;
-    for(int i = 0;i<ALLDEPO;i++)
+    for (int i = 0; i<ALLDEPO; i++)
     {
-        if(!(strcmp(depo[i].nombre, "") == 0))
+        if (!(strcmp(depo[i].nombre, "") == 0))
         {
-            cout << endl << i+1 << ".- " << depo[i].nombre;
+            cout << endl << i + 1 << ".- " << depo[i].nombre;
             //cout << " " << depo[i].horas;
             //cout << " " << depo[i].morning;
             //cout << " " << depo[i].precio;
@@ -372,7 +376,7 @@ int mostrarTodoDeportes(Deporte depo[])
         
         
     }
-    if(numDeportes==0)
+    if (numDeportes == 0)
     {
         cout << endl << "No hay ningun deporte";
     }
@@ -382,9 +386,9 @@ int mostrarTodoDeportes(Deporte depo[])
 void mostrarallSocios(Socio socis[], int& contSocios)
 {
     
-    if(atLeastOneSocio(socis))
+    if (atLeastOneSocio(socis))
     {
-        for(int i = 0; i<contSocios; i++)
+        for (int i = 0; i<contSocios; i++)
         {
             mostrarUnSocio(socis, i);
         }
@@ -393,23 +397,24 @@ void mostrarallSocios(Socio socis[], int& contSocios)
     }
 }
 
-int printDeportesUser(Socio socis[],int posSocio)
+int printDeportesUser(Socio socis[], int posSocio)
 {
-    int contDep=0;
+    int contDep = 0;
     //int pos = encontrarCodigo(socis, code);
-    for (int j=0; j<DEPO; j++)
+    for (int j = 0; j<DEPO; j++)
     {
-        if(strcmp(socis[posSocio].deportes[j].nombre, ""))
+        if (strcmp(socis[posSocio].deportes[j].nombre, ""))
         {
             
-            cout << endl << j+1 << "  Nombre: "
+            cout << endl << j + 1 << "  Nombre: "
             << socis[posSocio].deportes[j].nombre << endl;
             
             cout << "   Horas: " << socis[posSocio].deportes[j].horas << endl;
-            if(socis[posSocio].deportes[j].morning)
+            if (socis[posSocio].deportes[j].morning)
             {
                 cout << "   Horario de Mañanas" << endl;
-            }else{
+            }
+            else {
                 cout << "   Horario de Tardes" << endl;
             }
             //cout << "   Precio: " << socis[pos].deportes[j].precio << endl;
@@ -418,7 +423,7 @@ int printDeportesUser(Socio socis[],int posSocio)
         }
         
     }
-    if(contDep==0)
+    if (contDep == 0)
     {
         cout << "    No esta inscrito en ningun deporte" << endl << endl;
     }
@@ -427,9 +432,9 @@ int printDeportesUser(Socio socis[],int posSocio)
 
 void mostrarDeporteUnSocio(Socio socio[])
 {
-    int pos=ERROR;
+    int pos = ERROR;
     int code = ERROR;
-    if(atLeastOneSocio(socio))
+    if (atLeastOneSocio(socio))
     {
         
         cout << "Ingrese el codigo del Socio: " << endl;
@@ -441,9 +446,10 @@ void mostrarDeporteUnSocio(Socio socio[])
             cout << endl << "\nNo existe el Socio" << endl;
             space();
             
-        }else{
+        }
+        else {
             space();
-            cout << "Deporte(s) de " << socio[pos].nombre << ": "<< endl;
+            cout << "Deporte(s) de " << socio[pos].nombre << ": " << endl;
             printDeportesUser(socio, pos);
             
         }
@@ -453,64 +459,73 @@ void mostrarDeporteUnSocio(Socio socio[])
 void bajaSocio(Socio socio[], int& contador)
 {
     char ele;
-    int codigo=ERROR;
-    int posSocio=ERROR;
-    int numDeportes=ERROR;
+    int codigo = ERROR;
+    int posSocio = ERROR;
+    int numDeportes = ERROR;
     
     
-    if(atLeastOneSocio(socio))
+    if (atLeastOneSocio(socio))
     {
         
         //get poscontDep = printDeportesUser(socis, pos);
         //ask for int of soci wtf
         
         cout << "\nIngrese Codigo de Socio: ";
-        codigo=checkInt();
+        codigo = checkInt();
         
         posSocio = encontrarCodigo(socio, codigo);
-        if(posSocio==ERROR)
+        if (posSocio == ERROR)
         {
             cout << "Your amigo no found, sorry mate";
-        }else{
+        }
+        else {
             
-            numDeportes = mostrarUnSocio(socio,posSocio);
+            numDeportes = mostrarUnSocio(socio, posSocio);
             
             
-            do{
+            do {
                 space();
                 cout << endl << "¿Seguro que quieres dar de baja a "
-                << socio[posSocio].nombre <<"? (S/N):" << endl;
+                << socio[posSocio].nombre << "? (S/N):" << endl;
                 cin >> ele;
-            }while (ele!='s' && ele!='S' && ele!='N' && ele!='n');
+            } while (ele != 's' && ele != 'S' && ele != 'N' && ele != 'n');
             space();
-            if(ele=='n'||ele=='N')
+            if (ele == 'n' || ele == 'N')
             {
-                cout<< endl << "No se realizo nada...";
+                cout << endl << "No se realizo nada...";
                 space();
-            }else{
+            }
+            else {
                 
                 
-                fstream deleting (DELSOCI, ios::out | ios::app);
-                int posDep=0;
-                if(deleting.is_open())
+                fstream deleting(DELSOCI, ios::out | ios::app);
+                int posDep = 0;
+                if (deleting.is_open())
                 {
                     //los guardo en el fichero de borrados
                     
-                    if (!(deleting.tellg() == 0)) {
-                        deleting << endl;
-                    }
+                    //salto de linea si no esta vacio que no funciona con visual estudio
+                    if ((deleting.tellg())==0) {
+                     deleting << endl;
+                     }
                     deleting << socio[posSocio].codSoci << " ";
                     deleting << socio[posSocio].nombre << " ";
                     deleting << socio[posSocio].edad;
                     //deleting << " " << socio[posSocio].quota;
+                    
+                    //deleting << endl;
+                    
                     for (posDep = 0; posDep<numDeportes; posDep++)
                     {
-                        salvaBajaDeporte(socio,posSocio, posDep);
+                        salvaBajaDeporte(socio, posSocio, posDep);
                         
-                    }deleting.close();
+                    }
+                    
+                    
+                    deleting.close();
                 }
                 
-                destroyUser(socio,posSocio, contador);
+                destroyUser(socio, posSocio, contador);
                 
                 cout << "Un Socio menos :(" << endl;
             }
@@ -521,18 +536,18 @@ void bajaSocio(Socio socio[], int& contador)
 
 int  mostrarUnSocio(Socio socis[], int pos)
 {
-    int numDeportes=0;
-    if(!(strcmp(socis[pos].nombre, "") == 0))
+    int numDeportes = 0;
+    if (!(strcmp(socis[pos].nombre, "") == 0))
     {
         cout << endl;
-        cout << "Codigo: "<< socis[pos].codSoci <<endl;
-        cout << "Nombre: "<< socis[pos].nombre <<endl;
-        cout << "Edad: "<<socis[pos].edad <<endl;
+        cout << "Codigo: " << socis[pos].codSoci << endl;
+        cout << "Nombre: " << socis[pos].nombre << endl;
+        cout << "Edad: " << socis[pos].edad << endl;
         //cout << "Quota: "<<socis[pos].quota <<endl;
         cout << "Deportes: " << endl;
         
         
-        numDeportes=printDeportesUser(socis, pos);
+        numDeportes = printDeportesUser(socis, pos);
         
     }
     return numDeportes;
@@ -545,20 +560,20 @@ void destroyUser(Socio socio[], int pos, int& contador)
     
     
     //desplazo el array de socios
-    if(contador<SOCI)
+    if (contador<SOCI)
     {
         //desplazo todos los socios para que siempre me quden las primeras pos llenas
-        for (int actual=pos; actual<contador; actual++)
+        for (int actual = pos; actual<contador; actual++)
         {
-            socio[actual]=socio[actual+1];
+            socio[actual] = socio[actual + 1];
         }
     }
     
     //fusilo la socio de ultimo en la lista
-    socio[contador].codSoci=ERROR;
+    socio[contador].codSoci = ERROR;
     strcpy(socio[contador].nombre, "");
-    socio[contador].edad=ERROR;
-    socio[contador].quota=ERROR;
+    socio[contador].edad = ERROR;
+    socio[contador].quota = ERROR;
     
     
     contador--;
@@ -569,18 +584,18 @@ void destroyUser(Socio socio[], int pos, int& contador)
 void destroyDeporte(Socio socio[], int posSoci, int posDepo)
 {
     
-    int macDeportes=DEPO-1;
-    if(posDepo<macDeportes)
+    int macDeportes = DEPO - 1;
+    if (posDepo<macDeportes)
     {
-        for(int depoActual = posDepo; depoActual<macDeportes; depoActual++)
+        for (int depoActual = posDepo; depoActual<macDeportes; depoActual++)
         {
-            socio[posSoci].deportes[depoActual]=socio[posSoci].deportes[depoActual+1];
+            socio[posSoci].deportes[depoActual] = socio[posSoci].deportes[depoActual + 1];
         }
     }
     
     
     strcpy(socio[posSoci].deportes[macDeportes].nombre, "");
-    socio[posSoci].deportes[macDeportes].horas=ERROR;
+    socio[posSoci].deportes[macDeportes].horas = ERROR;
     //bool?
     
 }
@@ -594,23 +609,25 @@ void GUARDARFICHERO(Socio socio[], int& contador)
     if (contador == 0)
     {
         cout << "No hay datos para guardar...";
-    }else{
+    }
+    else {
         Socio existentes[SOCI];
         
         for (int i = 0; i < contador; i++)
         {
             //confio en mi contador
-            existentes[i]=socio[i];
+            existentes[i] = socio[i];
             
         }
         
-        lastVersion(filename,false);
+        lastVersion(filename, false);
         
         fichero.open(filename, ios::out | ios::binary);
-        if(!fichero.is_open())
+        if (!fichero.is_open())
         {
-            cout << "error";
-        }else{
+            cout << "No se pudo crear el fichero";
+        }
+        else {
             for (int i = 0; i<contador; i++) {
                 fichero.write((const char*)&existentes[i], sizeof(Socio));
             }
@@ -624,7 +641,7 @@ void GUARDARFICHERO(Socio socio[], int& contador)
     
 }
 
-void LEERFICHERO(Socio socis[],int& mainCont)
+void LEERFICHERO(Socio socis[], int& mainCont)
 {
     string filename = DATSOCIOS;
     fstream fichero;
@@ -632,12 +649,12 @@ void LEERFICHERO(Socio socis[],int& mainCont)
     clearSocios(socis);
     
     //ya tengo la cantidad de socios en el .dat
-    lastVersion(filename,true);
+    lastVersion(filename, true);
     
     
     Socio spawning[SOCI];
     fichero.open(filename, ios::in | ios::binary);
-    int i =0;
+    int i = 0;
     if (fichero.is_open())
     {
         
@@ -645,41 +662,39 @@ void LEERFICHERO(Socio socis[],int& mainCont)
         {
             fichero.read((char *)&spawning[i], sizeof(Socio));
             
-            if(spawning[i].codSoci!=0){
-                socis[i]=spawning[i];
+            if (spawning[i].codSoci != 0) {
+                socis[i] = spawning[i];
                 i++;
             }
         } while (!fichero.eof());
+        
         fichero.close();
-        
-    }
-    
-    if (i<=0) {
-        cout << "No existen datos que cargar";
-    }else{
-        
         cout << i << " Socios cargados al programa";
-        mainCont=i;
+        mainCont = i;
+    }else {
+        cout << "No existen datos que cargar";
+        
+        
     }
     
 }
 
 void bajaDeporte(Socio socio[])
 {
-    int codigo=ERROR;
-    int posSocio=ERROR;
-    int numDeporte=ERROR;
-    int posBorrar=ERROR;
+    int codigo = ERROR;
+    int posSocio = ERROR;
+    int numDeporte = ERROR;
+    int posBorrar = ERROR;
     
-    if(atLeastOneSocio(socio))
+    if (atLeastOneSocio(socio))
     {
-        do{
+        do {
             cout << "\nIngrese el Codigo de Socio: ";
-            codigo=checkInt();
+            codigo = checkInt();
             
             posSocio = encontrarCodigo(socio, codigo);
-            if(posSocio==ERROR){cout << endl << "\nTry Again: " << endl;}
-        }while(posSocio==ERROR);
+            if (posSocio == ERROR) { cout << endl << "\nTry Again: " << endl; }
+        } while (posSocio == ERROR);
         
         
         
@@ -687,40 +702,42 @@ void bajaDeporte(Socio socio[])
         char ele;
         //double precio;
         //si hay deportes pregunto
-        if(numDeporte!=0)
+        if (numDeporte != 0)
         {
             
             cout << "Que deporte quiere dar de baja: ";
             posBorrar = checkInt();
-            if(posBorrar>0 &&  posBorrar<=numDeporte)
+            if (posBorrar>0 && posBorrar <= numDeporte)
             {
-                posBorrar+=ERROR;
+                posBorrar += ERROR;
                 
-                do{
+                do {
                     space();
                     cout << endl << "¿Seguro que quieres dar de baja en este Deporte? (S/N):" << endl;
                     cin >> ele;
-                }while (ele!='s' && ele!='S' && ele!='N' && ele!='n');
+                } while (ele != 's' && ele != 'S' && ele != 'N' && ele != 'n');
                 space();
                 
-                if(ele=='n'||ele=='N')
+                if (ele == 'n' || ele == 'N')
                 {
-                    cout<< endl << "Nothing happened...";
+                    cout << endl << "Nothing happened...";
                     space();
-                }else{
+                }
+                else {
                     //obtengo el precio del deporte
                     //precio = socio[posSocio].deportes[posBorrar].precio;
                     
                     //restarQuota(socio, posSocio, socio[posSocio].deportes[posBorrar].precio);
                     
-                    salvaBajaDeporte(socio,posSocio,posBorrar);
+                    salvaBajaDeporte(socio, posSocio, posBorrar);
                     destroyDeporte(socio, posSocio, posBorrar);
                     
                     cout << "Se ha borrado el deporte";
                 }
                 
                 
-            }else{
+            }
+            else {
                 cout << endl << endl << "Wrong Awnser, no se ha borrado nada";
                 space();
             }
@@ -730,55 +747,57 @@ void bajaDeporte(Socio socio[])
 
 void lastVersion(string &file, bool read)
 {
-    int ver=0;
+    int ver = 0;
     
     string ext = ").dat";
-    if(!read)
+    if (!read)
     {
         if (ifstream(file))
         {
-            file=file.substr(0, file.length() - 4);
+            file = file.substr(0, file.length() - 4);
             ver++;
-            file=file + "(" + to_string(ver) + ext;
+            file = file + "(" + to_string(ver) + ext;
             
-            while(ifstream(file))
+            while (ifstream(file))
             {
-                file=file.substr(0, file.length() - 7);
+                file = file.substr(0, file.length() - 7);
                 ver++;
-                file=file + "(" + to_string(ver) + ext;
+                file = file + "(" + to_string(ver) + ext;
             }
         }
-    }else{
-        if(ifstream(file))
+    }
+    else {
+        if (ifstream(file))
         {
             //si existe el archivo original, puebo el siguiente
-            file=file.substr(0, file.length()-4);
+            file = file.substr(0, file.length() - 4);
             ver++;
-            file=file + "(" + to_string(ver) + ext;
+            file = file + "(" + to_string(ver) + ext;
             //si existe (1)
-            if(ifstream(file))
+            if (ifstream(file))
             {
-                file=file.substr(0, file.length() - 7);
+                file = file.substr(0, file.length() - 7);
                 ver++;
-                file=file + "(" + to_string(ver) + ext;
+                file = file + "(" + to_string(ver) + ext;
                 
                 //pruebo con (2)
-                while(ifstream(file))
+                while (ifstream(file))
                 {
-                    file=file.substr(0, file.length() - 7);
+                    file = file.substr(0, file.length() - 7);
                     ver++;
-                    file=file + "(" + to_string(ver) + ext;
+                    file = file + "(" + to_string(ver) + ext;
                 }
                 //cuando no encuentre un numero (num)..
                 //le indico que lea el ultimo que econtro
-                file=file.substr(0, file.length() - 7);
+                file = file.substr(0, file.length() - 7);
                 ver--;
-                file=file + "(" + to_string(ver) + ext;
-            }else{
+                file = file + "(" + to_string(ver) + ext;
+            }
+            else {
                 //cargo el original si no hay (1)..
-                file=file.substr(0, file.length() - 7);
-                ext=ext.substr(1,ext.length());
-                file=file + ext;
+                file = file.substr(0, file.length() - 7);
+                ext = ext.substr(1, ext.length());
+                file = file + ext;
             }
             
         }
@@ -794,7 +813,7 @@ void leerBajasDeportes(Socio socios[])
     string getter;
     bool found = false;
     
-    cout << "¿Que deporte estas buscando?"<<endl << endl;
+    cout << "¿Que deporte estas buscando?" << endl << endl;
     cin >> input;
     
     space();
@@ -809,7 +828,7 @@ void leerBajasDeportes(Socio socios[])
             
             
             //si el nombre del deporte es igual al indicado por el usuario
-            if(deporte.compare(input)==0)
+            if (deporte.compare(input) == 0)
             {
                 myfile >> getter;
                 cout << getter << " ";
@@ -817,7 +836,8 @@ void leerBajasDeportes(Socio socios[])
                 cout << getter << endl;
                 
                 found = true;
-            }else{
+            }
+            else {
                 //simplemente paso de largo el nombre de esa baja
                 myfile >> getter;
                 myfile >> getter;
@@ -827,12 +847,12 @@ void leerBajasDeportes(Socio socios[])
         myfile.close();
     }
     
-    if(!found)
+    if (!found)
         cout << "Uy.. no se ha encontrado nada";
     
 }
 
-void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
+void salvaBajaDeporte(Socio socio[], int posSocio, int  posBorrar)
 {
     
     
@@ -844,13 +864,20 @@ void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
     
     if (myfile.is_open())
     {
-        //si esta vacio no agrego un salto de linea
-        if (!(myfile.tellg() == 0)) {
+        //si esta vacio no agrego un salto de linea, para no tener lineas vacias al final
+        //del documento
+        if (!(myfile.tellg()==0))
             myfile << endl;
-        }
+        
+        
+         //NO funciona en visual, lo tuve que a ser a lo picapiedra
         
         myfile << socio[posSocio].deportes[posBorrar].nombre;
         myfile << " " << socio[posSocio].nombre;
+        
+        //asi
+        //myfile << endl;
+        
         
         myfile.close();
     }
@@ -858,14 +885,14 @@ void salvaBajaDeporte(Socio socio[] ,int posSocio,int  posBorrar)
 
 void edadesDeportes(Socio socis[])
 {
-    if(atLeastOneSocio(socis))
+    if (atLeastOneSocio(socis))
     {
         fstream myfile;
         myfile.open(EDADSOCI, ios::out);
         bool endedad = false;
         bool first = true;
         
-        if(myfile.is_open())
+        if (myfile.is_open())
         {
             for (int age = YOUTH; age < VEJEZ; age++)
             {
@@ -874,33 +901,33 @@ void edadesDeportes(Socio socis[])
                 {
                     
                     
-                    if (socis[posSoci].edad==age)
+                    if (socis[posSoci].edad == age)
                     {
                         
-                        if(first)
+                        if (first)
                         {
-                            myfile << age << " años: "<< endl;
-                            first=false;
-                            endedad=true;
+                            myfile << age << " aÒos: " << endl;
+                            first = false;
+                            endedad = true;
                         }
                         
                         
-        
                         
-                        myfile << socis[posSoci].codSoci <<" - ";
+                        
+                        myfile << socis[posSoci].codSoci << " - ";
                         myfile << socis[posSoci].nombre << endl;
                         
                     }
                     
                 }
-                if(endedad)
+                if (endedad)
                 {
                     myfile << "-----------" << endl;
-                    endedad=false;
+                    endedad = false;
                 }
-               
                 
-                first=true;
+                
+                first = true;
                 
             }
             
@@ -911,11 +938,11 @@ void edadesDeportes(Socio socis[])
     }
 }
 
-void sumarQuota(Socio socio[], int posSocio,double cuota)
+void sumarQuota(Socio socio[], int posSocio, double cuota)
 {
-    socio[posSocio].quota+=cuota;
+    socio[posSocio].quota += cuota;
 }
 void restarQuota(Socio socio[], int posSocio, double cuota)
 {
-    socio[posSocio].quota-=cuota;
+    socio[posSocio].quota -= cuota;
 }
