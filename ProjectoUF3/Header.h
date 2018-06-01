@@ -5,6 +5,7 @@
 #define DEPO 5
 #define ALLDEPO 30
 #define ERROR -1
+
 #define VEJEZ 100
 #define YOUTH 16
 

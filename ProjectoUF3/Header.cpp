@@ -505,7 +505,7 @@ void bajaSocio(Socio socio[], int& contador)
                     //deleting << " " << socio[posSocio].quota;
                     for (posDep = 0; posDep<numDeportes; posDep++)
                     {
-                        salvaBajaDeporte(socio,posSocio , posDep);
+                        salvaBajaDeporte(socio,posSocio, posDep);
                         
                     }deleting.close();
                 }
@@ -862,7 +862,8 @@ void edadesDeportes(Socio socis[])
     {
         fstream myfile;
         myfile.open(EDADSOCI, ios::out);
-        bool aff=false;
+        bool endedad = false;
+        bool first = true;
         
         if(myfile.is_open())
         {
@@ -872,20 +873,34 @@ void edadesDeportes(Socio socis[])
                 for (int posSoci = 0; posSoci < SOCI; posSoci++)
                 {
                     
+                    
                     if (socis[posSoci].edad==age)
                     {
-                        if(aff)
+                        
+                        if(first)
                         {
-                            myfile << "-----------" << endl;
-                            aff=false;
+                            myfile << age << " años: "<< endl;
+                            first=false;
+                            endedad=true;
                         }
-                        myfile << age << " años: "<< endl;
+                        
+                        
+        
+                        
                         myfile << socis[posSoci].codSoci <<" - ";
                         myfile << socis[posSoci].nombre << endl;
-                        aff=true;
+                        
                     }
                     
                 }
+                if(endedad)
+                {
+                    myfile << "-----------" << endl;
+                    endedad=false;
+                }
+               
+                
+                first=true;
                 
             }
             
@@ -904,4 +919,3 @@ void restarQuota(Socio socio[], int posSocio, double cuota)
 {
     socio[posSocio].quota-=cuota;
 }
-
