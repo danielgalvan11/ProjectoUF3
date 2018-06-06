@@ -1,20 +1,28 @@
 #include <iostream>
 
-#define NAM 20
+
 #define SOCI 30
 #define DEPO 5
+#define ACTI 10
+
+#define NAM 20
 #define ALLDEPO 30
 #define ERROR -1
 
+#define BAJA 50
 #define VEJEZ 100
 #define YOUTH 16
 
 
-#define DATASPORTS "dadesEsports.txt"
-#define DELDEPO "bajasDeportes.txt"
-#define DELSOCI "baixaSocis.txt"
 #define DATSOCIOS "infoSocis.dat"
+#define DATASPORTS "dadesEsports.txt"
+
+#define DELSOCI "baixaSocis.txt"
+#define DELDEPO "bajasDeportes.txt"
+
 #define EDADSOCI "edadSports.txt"
+
+#define FICHEACTI "activitats.txt"
 
 using namespace std;
         //std::cout
@@ -26,7 +34,12 @@ struct Deporte
     double horas;
     //double precio;
 };
-
+struct Actividad
+{
+    char nombre[NAM];
+    char sala;
+    int nivel;
+};
 struct Socio
 {
     int codSoci=0;
@@ -34,7 +47,10 @@ struct Socio
     int edad;
     double quota;
     Deporte deportes[DEPO];
+    Actividad inscrito;
 };
+
+
 
 //imprime opciones del menu
 int menu();
@@ -44,7 +60,7 @@ void doMenu();
 void space();
 
 //inicializa todos los datos
-void hellofriend(Socio socio[], Deporte[]);
+void hellofriend(Socio socio[], Deporte[], Actividad acti[]);
 //blanqueo de los socios
 void clearSocios(Socio socio[]);
 
@@ -87,9 +103,9 @@ void bajaSocio(Socio socio[], int &contador);
 void destroyUser(Socio socis[], int pos, int &contador);
 
 //guarda los datos del programa en el fichero
-void GUARDARFICHERO(Socio socis[],int &contador);
+void saveCurrentState(Socio socis[],int &contador);
 //carga los datos del programa en el fichero
-void LEERFICHERO(Socio socis[],int &contador);
+void readSaveState(Socio socis[],int &contador);
 //busca la ultima version del fichero para cargar o guardar
 void lastVersion(string &file, bool read);
 
@@ -109,3 +125,11 @@ void edadesDeportes(Socio socis[]);
 //suma la quota (de un deporte) al socio
 void sumarQuota(Socio socio[], int posSocio,double cuotaDep);
 void restarQuota(Socio socio[], int posSocio,double cuotaDep);
+
+void crearActividad(Actividad activ[],int &conta);
+void asociarActi(Socio socis[], Actividad actividades[],int &conta);
+int mostrarTodoActi(Actividad acti[]);
+
+void guardarFileDepo(Deporte depo[]);
+
+void cargarSociosBaja(Socio baja[]);
